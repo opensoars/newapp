@@ -1,0 +1,30 @@
+{
+  "name": "newapp",
+
+  "description": "Generates boilerplate code for new apps",
+
+  "version": "0.0.1",
+
+  "scripts": {
+    
+  },
+
+  "engines" : {
+    "node" : ">=0.8"
+  },
+
+  "dependencies": {
+    "ezlog": "0.0.14"
+  },
+
+  "devDependencies": {
+    
+  },
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/opensoars/newapp"
+  },
+
+  "readmeFilename": "README.md"
+}
