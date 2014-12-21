@@ -4,7 +4,7 @@ var Ezlog = require('Ezlog'),
 
 
 var argv = process.argv,
-    cd = argv[2],
+    called_from = argv[2],
     supl_proj_type = argv[3];
 
 // Did we get a project type?
@@ -18,14 +18,19 @@ var fs = require('fs');
 var data_folder = __dirname + '/data';
 
 
-// Get project types from data folder
-var project_types = fs.readdirSync(data_folder);
+fs.readdir(data_folder, function (err, project_types){
+  if(err) return logErr('Could not read project types folder', err);
 
-// Is the project specified supported?
-if(project_types.indexOf(supl_proj_type) === -1)
-  return logErr('`' + supl_proj_type + '` is not a known project type');
+  // Is the project specified supported?
+  if(project_types.indexOf(supl_proj_type) === -1)
+    return logErr('`' + supl_proj_type + '` is not a known project type');
 
-log('`' + supl_proj_type + '` is a known project type');
+  log('`' + supl_proj_type + '` is a known project type');
+
+  // If we're all set, 
+  checkDir(data_folder + '/' + supl_proj_type, called_from);
+});
+
 
 
 /**
@@ -34,38 +39,65 @@ log('`' + supl_proj_type + '` is a known project type');
  * else copy
  */
 
-function copyItem(source, target){
+function copyFile(source, target){
 
-  fs.readFile(source, function (err, data){
-    if(err) return logErr('Could not read: ' + source, err);
+  //console.log('copyFile', source, target);
 
-    fs.writeFile(target, data, function (err){
-      if(err) return logErr('Could not write: ' + target, err);
+  fs.readFile(source, function (readErr, data){
+    if(readErr)return logErr('Could not read: ' + source, readErr);
+
+    fs.writeFile(target, data, function (writeErr){
+      if(writeErr) return logErr('Could not write: ' + target, writeErr);
+    });
+  });
+}
+
+
+/**
+ * Read dir
+ * if item is dir re-call read dir
+ * else copy
+ */
+
+function copyFile(source, target){
+
+  //console.log('copyFile', source, target);
+
+  fs.readFile(source, function (readErr, data){
+    if(readErr) return logErr('Could not read: ' + source, readErr);
+
+    fs.writeFile(target, data, function (writeErr){
+      if(writeErr) return logErr('Could not write: ' + target, writeErr);
     });
 
   });
 }
 
 
-function read(){
-
-}
-
-
-(function copyDir(dir){
+function checkDir(dir, target){
 
   fs.readdir(dir, function (err, items){
-    if(err) return logErr('Could not read: ' + dir, err);
+    if(err) return logErr(err);
 
     items.forEach(function (item){
-      fs.stat(dir + '/' + item, function (err, stats){
-        if(stats.isDirectory())
-          copyDir(dir + '/' + item);
+
+      var src_path = dir + '/' + item;
+
+      fs.stat(src_path, function (err, stats){
+        if(stats.isDirectory()){
+
+          create_target = target + '/' + item;
+
+          fs.mkdir(create_target, function (err){
+            if(err) return logErr(err);
+            checkDir(src_path, create_target);
+          });
+        } 
        else
-          copyItem(dir + '/' + item, cd + '/' + item);
-      })
+          copyFile(src_path, target + '/' + item);
+      });
     });
 
   });
 
-}(data_folder + '/' + supl_proj_type));
+}
