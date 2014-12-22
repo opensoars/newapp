@@ -5,9 +5,11 @@ Generates boilerplate code for new apps.
 ---
 
 ## Install
-1. Via git
-  1. Test
-  2. 123
-2. Via NPM
+* Using git
+  1. Clone source
+  2. Make newapp accessible from terminal
+* Using NPM
+  1. npm install newapp -g
 
 ## Use
+CLI: `newapp type_of_app`
