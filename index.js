@@ -1,103 +1,124 @@
-var Ezlog = require('Ezlog'),
-    log = new Ezlog(['[newapp]', 'yellow']),
-    logErr = new Ezlog(['[newapp]', 'yellow'], ['red']);
+var f_ = require('f_'),
+    Ezlog = require('Ezlog'),
+    fs = require('fs');
 
+/**
+ * App namespace
+ * At the end of this file we update process.app the
+ * with our local app variable
+ */
+var app = {};
+process.app = {};
 
-var argv = process.argv,
-    called_from = argv[2],
-    supl_proj_type = argv[3];
+/**
+ * App variables
+ */
+app.argv = process.argv;
+app.cd = app.argv[2];
+app.wanted = app.argv[3];
+app.projects_dir = __dirname + '/projects'
 
-// Did we get a project type?
-if(!supl_proj_type)
-  return logErr('Please specify what to build, i.e: `newapp node`');
-
-
-var fs = require('fs');
-
-// Where our project types are stored
-var data_folder = __dirname + '/data';
-
-
-fs.readdir(data_folder, function (err, project_types){
-  if(err) return logErr('Could not read project types folder', err);
-
-  // Is the project specified supported?
-  if(project_types.indexOf(supl_proj_type) === -1)
-    return logErr('`' + supl_proj_type + '` is not a known project type');
-
-  log('`' + supl_proj_type + '` is a known project type');
-
-  // If we're all set, 
-  checkDir(data_folder + '/' + supl_proj_type, called_from);
-});
-
+app.log = new Ezlog(['[newapp]', 'yellow', 'bold']);
+app.logErr = new Ezlog(['[newapp]', 'yellow', 'bold'], ['red']);
 
 
 /**
- * Read dir
- * if item is dir re-call read dir
- * else copy
+ * App tasks constructor
  */
-
-function copyFile(source, target){
-
-  //console.log('copyFile', source, target);
-
-  fs.readFile(source, function (readErr, data){
-    if(readErr)return logErr('Could not read: ' + source, readErr);
-
-    fs.writeFile(target, data, function (writeErr){
-      if(writeErr) return logErr('Could not write: ' + target, writeErr);
-    });
-  });
-}
-
+app.tasks = {};
 
 /**
- * Read dir
- * if item is dir re-call read dir
- * else copy
+ * tasks method start
  */
+app.tasks.start = function (){
+  this.f_next();
+};
 
-function copyFile(source, target){
+/**
+ * tasks method testWantedApp
+ */
+app.tasks.testWantedApp = function (){
 
-  //console.log('copyFile', source, target);
+  var self = this;
 
+  if(!app.wanted)
+    return app.logErr('Please specify app type to build, i.e: newapp node');
+
+  fs.readdir(app.projects_dir, function (err, project_types){
+    if(err) return app.logErr('Could not read project types folder', err);
+
+    if(project_types.indexOf(app.wanted) === -1)
+      return app.logErr('`' + app.wanted + '` is not a known project type');
+
+    app.log('`' + app.wanted + '` is a known project type');
+
+    self.f_next();
+  });
+};
+
+app.tasks.copyDir = function (){
+  app.log('Creating a `' + app.wanted + '` project in ' + app.cd);
+  app.tasks.checkDir(app.projects_dir + '/' + app.wanted, app.cd);
+  this.f_next();
+};
+
+
+app.tasks.copyFile = function(source, target){
   fs.readFile(source, function (readErr, data){
-    if(readErr) return logErr('Could not read: ' + source, readErr);
+    if(readErr) return app.logErr('Could not read: ' + source, readErr);
 
     fs.writeFile(target, data, function (writeErr){
-      if(writeErr) return logErr('Could not write: ' + target, writeErr);
+      if(writeErr) return app.logErr('Could not write: ' + target, writeErr);
+      app.log('Created file: ' + target);
     });
 
   });
+};
+
+app.tasks.createDir = function (src, target){
+  fs.mkdir(target, function (err){
+    if(err) return app.logErr('Could nog create dir', err);
+    app.tasks.checkDir(src, target);
+
+    app.log('Created dir:  ' + target);
+  });
 }
 
+app.tasks.checkDir = function (dir, target){
 
-function checkDir(dir, target){
+  fs.readdir(dir, function (err, files){
+    if(err) return app.logErr('Could not read dir', err);
 
-  fs.readdir(dir, function (err, items){
-    if(err) return logErr(err);
+    files.forEach(function (file){
 
-    items.forEach(function (item){
-
-      var src_path = dir + '/' + item;
-
-      fs.stat(src_path, function (err, stats){
-        if(stats.isDirectory()){
-
-          create_target = target + '/' + item;
-
-          fs.mkdir(create_target, function (err){
-            if(err) return logErr(err);
-            checkDir(src_path, create_target);
-          });
-        } 
+      var src = dir + '/' + file;
+      
+      fs.stat(src, function (err, stats){
+        if(stats.isDirectory())
+          app.tasks.createDir(src, target + '/' + file);
        else
-          copyFile(src_path, target + '/' + item);
+          app.tasks.copyFile(src, target + '/' + file);
       });
     });
 
   });
 
-}
+};
+
+
+/**
+ * Augment tasks constructor
+ */
+app.tasks = f_.augment(app.tasks, {
+  functionFlow: ['testWantedApp', 'copyDir'],
+  desc: 'newapp',
+  toLog: ['none']
+});
+
+
+app.tasks = f_.setup( app.tasks );
+
+app.tasks.start();
+
+
+process.app = app;
