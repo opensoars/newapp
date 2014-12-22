@@ -27,27 +27,29 @@ app.logErr = new Ezlog(['[newapp]', 'yellow', 'bold'], ['red']);
 
 
 /**
- * App tasks constructor
+ * App tasks object namespace
  */
 app.tasks = {};
 
+
 /**
- * tasks method start
+ * Require all lib files (tasks methods)
  */
-app.tasks.start = function (){
-  this.f_next();
-};
-
-
-app.tasks.testWantedApp = require('./lib/testWantedApp.js');
-app.tasks.copyDir = require('./lib/copyDir.js');
-app.tasks.copyFile = require('./lib/copyFile.js');
-app.tasks.createDir = require('./lib/createDir.js');
-app.tasks.checkDir = require('./lib/checkDir.js');
+[
+  'start',
+  'testWantedApp',
+  'copyDir',
+  'copyFile',
+  'createDir',
+  'checkDir'
+]
+.forEach(function (lib){
+  app.tasks[lib] = require('./lib/' + lib + '.js');
+});
 
 
 /**
- * Augment tasks constructor
+ * Augment tasks object
  */
 app.tasks = f_.augment(app.tasks, {
   functionFlow: ['testWantedApp', 'copyDir'],
@@ -55,13 +57,19 @@ app.tasks = f_.augment(app.tasks, {
   toLog: ['none']
 });
 
-
+/**
+ * Setup tasks object
+ */
 app.tasks = f_.setup( app.tasks );
 
-
+/**
+ * Update global app
+ */
 process.app = app;
 
-
+/**
+ * Start tasks
+ */
 app.tasks.start();
 
 
