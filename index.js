@@ -38,7 +38,7 @@ app.tasks = {};
 [
   'start',
   'testWantedApp',
-  'copyDir',
+  'copyProject',
   'copyFile',
   'createDir',
   'checkDir'
@@ -52,7 +52,7 @@ app.tasks = {};
  * Augment tasks object
  */
 app.tasks = f_.augment(app.tasks, {
-  functionFlow: ['testWantedApp', 'copyDir'],
+  functionFlow: ['testWantedApp', 'copyProject'],
   desc: 'newapp',
   toLog: ['none']
 });
