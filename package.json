@@ -3,7 +3,7 @@
 
   "description": "Generates boilerplate code for new apps",
 
-  "version": "0.0.1",
+  "version": "0.0.2",
 
   "scripts": {
     
@@ -14,7 +14,7 @@
   },
 
   "dependencies": {
-    "ezlog": "0.0.14"
+    "ezlog": "0.0.15"
   },
 
   "devDependencies": {
