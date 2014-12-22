@@ -1,6 +1,5 @@
 var f_ = require('f_'),
-    Ezlog = require('Ezlog'),
-    fs = require('fs');
+    Ezlog = require('Ezlog');
 
 /**
  * App namespace
@@ -9,6 +8,11 @@ var f_ = require('f_'),
  */
 var app = {};
 process.app = {};
+
+/**
+ * App modules
+ */
+app.fs = require('fs');
 
 /**
  * App variables
@@ -34,76 +38,12 @@ app.tasks.start = function (){
   this.f_next();
 };
 
-/**
- * tasks method testWantedApp
- */
-app.tasks.testWantedApp = function (){
 
-  var self = this;
-
-  if(!app.wanted)
-    return app.logErr('Please specify app type to build, i.e: newapp node');
-
-  fs.readdir(app.projects_dir, function (err, project_types){
-    if(err) return app.logErr('Could not read project types folder', err);
-
-    if(project_types.indexOf(app.wanted) === -1)
-      return app.logErr('`' + app.wanted + '` is not a known project type');
-
-    app.log('`' + app.wanted + '` is a known project type');
-
-    self.f_next();
-  });
-};
-
-app.tasks.copyDir = function (){
-  app.log('Creating a `' + app.wanted + '` project in ' + app.cd);
-  app.tasks.checkDir(app.projects_dir + '/' + app.wanted, app.cd);
-  this.f_next();
-};
-
-
-app.tasks.copyFile = function(source, target){
-  fs.readFile(source, function (readErr, data){
-    if(readErr) return app.logErr('Could not read: ' + source, readErr);
-
-    fs.writeFile(target, data, function (writeErr){
-      if(writeErr) return app.logErr('Could not write: ' + target, writeErr);
-      app.log('Created file: ' + target);
-    });
-
-  });
-};
-
-app.tasks.createDir = function (src, target){
-  fs.mkdir(target, function (err){
-    if(err) return app.logErr('Could nog create dir', err);
-    app.tasks.checkDir(src, target);
-
-    app.log('Created dir:  ' + target);
-  });
-}
-
-app.tasks.checkDir = function (dir, target){
-
-  fs.readdir(dir, function (err, files){
-    if(err) return app.logErr('Could not read dir', err);
-
-    files.forEach(function (file){
-
-      var src = dir + '/' + file;
-      
-      fs.stat(src, function (err, stats){
-        if(stats.isDirectory())
-          app.tasks.createDir(src, target + '/' + file);
-       else
-          app.tasks.copyFile(src, target + '/' + file);
-      });
-    });
-
-  });
-
-};
+app.tasks.testWantedApp = require('./lib/testWantedApp.js');
+app.tasks.copyDir = require('./lib/copyDir.js');
+app.tasks.copyFile = require('./lib/copyFile.js');
+app.tasks.createDir = require('./lib/createDir.js');
+app.tasks.checkDir = require('./lib/checkDir.js');
 
 
 /**
@@ -118,7 +58,10 @@ app.tasks = f_.augment(app.tasks, {
 
 app.tasks = f_.setup( app.tasks );
 
+
+process.app = app;
+
+
 app.tasks.start();
 
 
-process.app = app;
