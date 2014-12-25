@@ -1,6 +1,7 @@
 var f_ = require('f_'),
     Ezlog = require('Ezlog');
 
+
 /**
  * App namespace
  * At the end of this file we update process.app the
@@ -9,10 +10,12 @@ var f_ = require('f_'),
 var app = {};
 process.app = {};
 
+
 /**
  * App modules
  */
 app.fs = require('fs');
+
 
 /**
  * App variables
@@ -49,7 +52,7 @@ app.tasks = {};
 
 
 /**
- * Augment tasks object
+ * Augment tasks object so it gets f_ methods
  */
 app.tasks = f_.augment(app.tasks, {
   functionFlow: ['testWantedApp', 'copyProject'],
@@ -57,15 +60,18 @@ app.tasks = f_.augment(app.tasks, {
   toLog: ['none']
 });
 
+
 /**
- * Setup tasks object
+ * Setup tasks object so it gets f_ properties
  */
 app.tasks = f_.setup( app.tasks );
 
+
 /**
- * Update global app
+ * Update global app variable
  */
 process.app = app;
+
 
 /**
  * Start tasks
