@@ -23,6 +23,7 @@ app.fs = require('fs');
 app.argv = process.argv;
 app.cd = app.argv[2];
 app.wanted = app.argv[3];
+app.name = app.argv[4];
 app.projects_dir = __dirname + '/projects'
 
 app.log = new Ezlog(['[newapp]', 'yellow', 'bold']);
@@ -30,32 +31,56 @@ app.logErr = new Ezlog(['[newapp]', 'yellow', 'bold'], ['red']);
 
 
 /**
- * App tasks object namespace
+ * App tasks namespace
  */
 app.tasks = {};
 
 
 /**
- * Require all lib files (tasks methods)
+ * App helper namespace
+ */
+app.helpers = {};
+
+
+
+/**
+ * Require all tasks
  */
 [
-  'start',
   'testWantedApp',
+  'createAppDir',
   'copyProject',
+]
+.forEach(function (task){
+  app.tasks[task] = require('./lib/tasks/' + task + '.js');
+});
+
+
+/**
+ * Require all helpers
+ */
+[
   'copyFile',
   'createDir',
   'checkDir'
 ]
-.forEach(function (lib){
-  app.tasks[lib] = require('./lib/' + lib + '.js');
+.forEach(function (helper){
+  app.helpers[helper] = require('./lib/helpers/' + helper + '.js');
 });
+
+
+/**
+ * Require app f_ starter
+ */
+app.start = require('./lib/start.js');
+
 
 
 /**
  * Augment tasks object so it gets f_ methods
  */
 app.tasks = f_.augment(app.tasks, {
-  functionFlow: ['testWantedApp', 'copyProject'],
+  functionFlow: ['testWantedApp', 'createAppDir', 'copyProject'],
   desc: 'newapp',
   toLog: ['none']
 });
@@ -76,6 +101,6 @@ process.app = app;
 /**
  * Start tasks
  */
-app.tasks.start();
+app.start();
 
 
