@@ -85,6 +85,7 @@ app.tasks = f_.augment(app.tasks, {
   toLog: ['none']
 });
 
+Damn, je hebt me goeie muziek mee gegeven :)
 
 /**
  * Setup tasks object so it gets f_ properties
