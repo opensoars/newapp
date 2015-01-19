@@ -16,7 +16,7 @@ Generates boilerplate code for new apps.
 ### CLI
 Example: `newapp type_of_app "list of arguments"`.
 
-Passing command line arguments which can be used to fill templates: `newapp type_of_app "name=app_name" "test_data=123"`
+Passing command line arguments which can be used to fill templates: `newapp type_of_app "name=app_name" "test_data=test123"`
 
 ### Templating
 Example template (a file within a project in the projects folder):
@@ -27,6 +27,18 @@ Example template (a file within a project in the projects folder):
 Install notes about {{name}} are put here.
 
 ## Use
+{{test_data}}
+```
+
+Which will result in:
+```md
+# app_name
+
+## Install
+Install notes about app_name are put here.
+
+## Use
+test123
 ```
 
 ## Add/edit projects
