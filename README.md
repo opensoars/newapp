@@ -14,7 +14,9 @@ Generates boilerplate code for new apps.
 ## Use
 
 ### CLI
-`newapp type_of_app "list of arguments"`.
+Example run: `newapp type_of_app "list of arguments"`.
+
+
 Passing data which can be added to the template is as easy as: `newapp type_of_app "name=app_name" "test_data=123"`
 
 ### Templating
