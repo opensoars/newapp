@@ -21,9 +21,12 @@ app.fs = require('fs');
  * App variables
  */
 app.argv = process.argv;
-
 app.projects_dir = __dirname + '/projects'
 
+
+/**
+ * App logger functions
+ */
 app.log = new Ezlog(['[newapp]', 'yellow', 'bold']);
 app.logErr = new Ezlog(['[newapp]', 'yellow', 'bold'], ['red']);
 
