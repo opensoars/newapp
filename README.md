@@ -14,15 +14,18 @@ Generates boilerplate code for new apps.
 ## Use
 
 ### CLI
-Example run: `newapp type_of_app "list of arguments"`.
+Example: `newapp type_of_app "list of arguments"`.
 
-
-Passing data which can be added to the template is as easy as: `newapp type_of_app "name=app_name" "test_data=123"`
+Passing command line arguments which can be used to fill templates: `newapp type_of_app "name=app_name" "test_data=123"`
 
 ### Templating
 Example template:
 ```md
-# hello world
+# {{name}}
+
+## Install
+
+## Use
 ```
 
 ## Customize
