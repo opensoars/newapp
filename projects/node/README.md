@@ -5,6 +5,6 @@
 ---
 
 
-## Install
+## Install {{app.test}}
 
 ## Use

@@ -42,16 +42,19 @@ app.tasks = {};
 app.helpers = {};
 
 
+app.f_tasks = [
+  'getCla',
+  'testWantedApp',
+  'createAppDir',
+  'copyProject'
+];
+
 
 /**
  * Require all tasks
  */
-[
-  'testWantedApp',
-  'createAppDir',
-  'copyProject',
-]
-.forEach(function (task){
+
+app.f_tasks.forEach(function (task){
   app.tasks[task] = require('./lib/tasks/' + task + '.js');
 });
 
@@ -61,6 +64,7 @@ app.helpers = {};
  */
 [
   'copyFile',
+  'template',
   'createDir',
   'checkDir'
 ]
@@ -77,20 +81,19 @@ app.start = require('./lib/start.js');
 
 
 /**
- * Augment tasks object so it gets f_ methods
- */
-app.tasks = f_.augment(app.tasks, {
-  functionFlow: ['testWantedApp', 'createAppDir', 'copyProject'],
-  desc: 'newapp',
-  toLog: ['none']
-});
-
-Damn, je hebt me goeie muziek mee gegeven :)
-
-/**
  * Setup tasks object so it gets f_ properties
  */
 app.tasks = f_.setup( app.tasks );
+
+
+/**
+ * Augment tasks object so it gets f_ methods
+ */
+app.tasks = f_.augment(app.tasks, {
+  functionFlow: app.f_tasks,
+  desc: 'newapp',
+  toLog: ['none']
+});
 
 
 /**
