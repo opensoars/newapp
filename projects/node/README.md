@@ -1,10 +1,10 @@
-# {{app.name}}
+# {{name}}
 
 
 
 ---
 
 
-## Install {{app.test}}
+## Install {{test}}
 
 ## Use

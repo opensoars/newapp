@@ -21,13 +21,14 @@ app.fs = require('fs');
  * App variables
  */
 app.argv = process.argv;
-app.cd = app.argv[2];
-app.wanted = app.argv[3];
-app.name = app.argv[4];
+
 app.projects_dir = __dirname + '/projects'
 
 app.log = new Ezlog(['[newapp]', 'yellow', 'bold']);
 app.logErr = new Ezlog(['[newapp]', 'yellow', 'bold'], ['red']);
+
+
+app.template_handles = {};
 
 
 /**
@@ -42,6 +43,9 @@ app.tasks = {};
 app.helpers = {};
 
 
+/**
+ * App f_ tasks
+ */
 app.f_tasks = [
   'getCla',
   'testWantedApp',
@@ -64,7 +68,7 @@ app.f_tasks.forEach(function (task){
  */
 [
   'copyFile',
-  'template',
+  'fillTemplate',
   'createDir',
   'checkDir'
 ]
