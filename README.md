@@ -19,7 +19,7 @@ Example: `newapp type_of_app "list of arguments"`.
 Passing command line arguments which can be used to fill templates: `newapp type_of_app "name=app_name" "test_data=123"`
 
 ### Templating
-Example template:
+Example template (a file within a project in the projects folder):
 ```md
 # {{name}}
 
