@@ -28,6 +28,9 @@ app.log = new Ezlog(['[newapp]', 'yellow', 'bold']);
 app.logErr = new Ezlog(['[newapp]', 'yellow', 'bold'], ['red']);
 
 
+/**
+ * App template data namespace
+ */
 app.template_handles = {};
 
 
@@ -45,6 +48,7 @@ app.helpers = {};
 
 /**
  * App f_ tasks
+ * Used in task requires and as functionFlow argument @augment
  */
 app.f_tasks = [
   'getCla',
@@ -57,7 +61,6 @@ app.f_tasks = [
 /**
  * Require all tasks
  */
-
 app.f_tasks.forEach(function (task){
   app.tasks[task] = require('./lib/tasks/' + task + '.js');
 });
