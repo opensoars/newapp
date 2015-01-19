@@ -24,7 +24,7 @@ Example template:
 # {{name}}
 
 ## Install
-Install notes about {{name}} are put here
+Install notes about {{name}} are put here.
 
 ## Use
 ```
