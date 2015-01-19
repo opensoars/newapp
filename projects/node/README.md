@@ -5,6 +5,6 @@
 ---
 
 
-## Install {{test}}
+## Install
 
 ## Use
