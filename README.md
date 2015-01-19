@@ -30,4 +30,5 @@ Install notes about {{name}} are put here.
 ```
 
 ## Add/edit projects
-It is really easy to add and edit projects that get build with newapp. Just go to the directory newapp is installed in and locate the projects folder. If you save a project inside a folder with a descriptive name in here, it can be used by newapp. Let's say I've just added a project called `rails`. Now I can simply type `newapp rails` and it will get build!
+
+It is easy to add/edit projects that can be build by newapp. Locate the install location of newapp and go to the projects folder. In here you can create a project or edit existing ones. Let's say I want to add a rails project. I just create a rails folder with the default project base in it. Now I can type `newapp rails "name=my_rails_app"` to build my default rails app. Note that the first argument 'name' is required.
