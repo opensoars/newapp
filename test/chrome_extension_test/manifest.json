@@ -1,0 +1,16 @@
+{
+  "manifest_version": 2,
+
+  "name": "chrome_extension_test",
+  "description": "chrome_extension_test_desc",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "style/img/btn_icon.png",
+    "default_popup": "popup.html"
+  },
+  
+  "permissions": [
+    
+  ]
+}
