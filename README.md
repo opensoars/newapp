@@ -41,6 +41,8 @@ Install notes about app_name are put here.
 test123
 ```
 
+Templating works with directory and file names, just use the above syntax in theire names and pass on arguments using the CLI.
+
 ### Empty directories
 If you want to have empty directories in your project, you need to place .keep file in them. Git will then keep those folders and newapp will copy the directories without the .keep files.
 
