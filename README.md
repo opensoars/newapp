@@ -9,7 +9,7 @@ Generates boilerplate code for new apps.
   1. Clone source
   2. Make newapp accessible from terminal
 * Using NPM
-  1. `npm install newapp -g`
+  1. `npm install -g newapp`
 
 ## Use
 
