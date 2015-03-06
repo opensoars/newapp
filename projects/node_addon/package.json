@@ -1,0 +1,14 @@
+{
+  "name": "{{name}}",
+  "version": "0.0.0",
+  "description": "{{desc}}",
+  "main": "{{name}}.js",
+
+  "scripts": {
+  },
+
+  "gypfile": true,
+  "dependencies": {
+    "bindings": "~1.2.1"
+  }
+}
