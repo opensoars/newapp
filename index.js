@@ -1,5 +1,5 @@
 var f_ = require('f_'),
-    Ezlog = require('Ezlog');
+    Ezlog = require('ezlog');
 
 
 /**
