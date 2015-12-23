@@ -1,0 +1,10 @@
+{
+  "files": {
+    "included": [
+      "lib/*", "index.js"
+    ],
+    "excluded": [
+      "test", "doc", "node_modules", "scripts", "coverage", "node_modules"
+    ]
+  }
+}
