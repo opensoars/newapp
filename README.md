@@ -14,7 +14,8 @@ Generates boilerplate code for new apps.
 ## Use
 
 ### CLI
-Example: `newapp type_of_app "list of arguments"`.
+Example: `newapp node "name=node_app"`.
+
 
 Passing command line arguments which can be used to fill templates: `newapp type_of_app "name=app_name" "test_data=test123"`
 
