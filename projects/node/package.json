@@ -8,7 +8,11 @@
     "test": "node node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha \"./test/mocha/*.js\" && npm run coveralls",
     "local_test": "node node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha \"./test/mocha/*.js\"",
     "coveralls": "node node_modules/coveralls/bin/coveralls.js < coverage/lcov.info",
-    "doc": "node node_modules/jsdoc/jsdoc.js -c ./doc/config.json --readme README.md"
+    "doc": "node node_modules/jsdoc/jsdoc.js -c ./doc/config.json --readme README.md",
+    "nodemon_test_cov": "nodemon --exec \"npm run local_all\" --watch src --watch test --watch .codeclimate.yml --watch .gitignore --watch .travis.yml --watch LICENSE --watch README.md --watch inch.json --watch index.js --watch package.json",
+    "nodemon_exec": "nodemon index.js --watch src --watch test --watch .codeclimate.yml --watch .gitignore --watch .travis.yml --watch LICENSE --watch README.md --watch inch.json --watch index.js --watch package.json",
+    "local_all": "npm run local_test && npm run doc",
+    "app": "node index.js"
   },
 
   "engines": {
