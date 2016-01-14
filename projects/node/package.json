@@ -12,7 +12,9 @@
     "nodemon_test_doc": "nodemon --exec \"npm run local_all\" --watch src --watch test --watch .codeclimate.yml --watch .gitignore --watch .travis.yml --watch LICENSE --watch README.md --watch inch.json --watch index.js --watch package.json",
     "nodemon_test": "nodemon --exec \"npm run local_test\" --watch src --watch test --watch .codeclimate.yml --watch .gitignore --watch .travis.yml --watch LICENSE --watch README.md --watch inch.json --watch index.js --watch package.json",
     "nodemon_doc": "nodemon --exec \"npm run doc\" --watch src --watch test --watch .codeclimate.yml --watch .gitignore --watch .travis.yml --watch LICENSE --watch README.md --watch inch.json --watch index.js --watch package.json",
-    "nodemon_exec": "nodemon index.js --watch src --watch test --watch .codeclimate.yml --watch .gitignore --watch .travis.yml --watch LICENSE --watch README.md --watch inch.json --watch index.js --watch package.json"
+    "nodemon_exec": "nodemon index.js --watch src --watch test --watch .codeclimate.yml --watch .gitignore --watch .travis.yml --watch LICENSE --watch README.md --watch inch.json --watch index.js --watch package.json",
+    "local_all": "npm run local_test && npm run doc",
+    "app": "node index.js"
   },
 
   "engines": {
