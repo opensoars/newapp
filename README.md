@@ -42,7 +42,7 @@ Install notes about app_name are put here.
 test123
 ```
 
-The above syntax also applies to both directory and file names. `{{some_script.js}}`
+The above syntax also applies to both directory and file names `{{some_script.js}}`.
 
 ### Empty directories
 If you want to have empty directories in your project, you need to place .keep file in them. Git will then keep those folders and newapp will copy the directories without the .gitkeep files.
