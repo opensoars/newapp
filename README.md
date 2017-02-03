@@ -1,6 +1,6 @@
 # newapp
 
-Generates boilerplate code for new apps.
+Generates boilerplate code for new apps. `newapp` will undergo heavy changes in the near future. Backwards compatibility will be kept in mind.
 
 ---
 
