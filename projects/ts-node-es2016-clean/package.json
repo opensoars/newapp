@@ -2,7 +2,7 @@
   "name": "{{name}}",
   "version": "1.0.0",
   "description": "{{desc}}",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "rimraf dist && tsc",
     "preserve": "npm run build",
