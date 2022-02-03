@@ -2,7 +2,7 @@
   "name": "{{name}}",
   "version": "0.0.1",
   "description": "{{description}}",
-  "main": "bin/index.ts",
+  "main": "bin/index.js",
   "bin": {
     "{{name}}": "./bin/index.js"
   },
