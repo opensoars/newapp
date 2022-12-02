@@ -1,7 +1,7 @@
 {
   "name": "newapp",
   "description": "Generates boilerplate code for new apps",
-  "version": "3.0.5",
+  "version": "4.0.5",
   "scripts": {},
   "bin": {
     "newapp": "index.js"
@@ -12,8 +12,7 @@
   },
   "dependencies": {
     "ezlog": "0.0.15",
-    "f_": "0.0.8",
-    "bindings": "~1.2.1"
+    "f_": "0.0.8"
   },
   "devDependencies": {},
   "repository": {
